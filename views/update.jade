@@ -1,0 +1,27 @@
+extends layout
+
+block content
+ if(typeof results!='undefined')
+  form(method='POST' action="/edit/"+results.u_id)
+    label(for='fname')
+      b First Name
+    input#fname(type='text', placeholder='Enter First Name', name='fname', value="#{results.u_fname}" required='required')
+    label(for='lname')
+      b Last Name
+    input#lname(type='text', placeholder='Enter Last Name', name='lname', value= "#{results.u_lname}" required='required')
+    label(for='phone')
+      b Phone
+    input#phone(type='tel', placeholder='Enter Phone Number', name='phone',maxlength="10", value= "#{results.u_phone}" required='required')
+    label(for='role')
+      b User Role
+    select#user_role(name='role')
+     - repeation = [ 'admin', 'subscriber', 'editor', 'contributor']
+     for item in repeation
+        option(value="#{item}" selected=results.u_role == item) #{item}
+    label(for='status')
+      b User Status
+    select#user_status(name='status')
+     - userstatus = ['active', 'inactive']
+     for ust in userstatus
+        option(value="#{ust}" selected=results.u_status == ust) #{ust}    
+    button(type='submit') Update User

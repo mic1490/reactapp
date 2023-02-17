@@ -1,0 +1,124 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title  StockMarket
+    link(rel='stylesheet', href='/stylesheets/style.css')    
+    link(href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css', rel='stylesheet')
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css')
+    link(rel='stylesheet' href='https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap4.min.css')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  body
+  if authorised
+    .sidebar
+      .logo-details
+        i.bx.bxl-c-plus-plus
+        span.logo_name StockMarket
+      ul.nav-links
+        li
+          a.active(href='#')
+            i.bx.bx-grid-alt
+            span.links_name User Dashboard
+        li
+          a(href='#')
+            i.bx.bx-box
+            span.links_name Stock Data    
+        li.log_out
+          a(href='/exit')
+            i.bx.bx-log-out
+            span.links_name Log out    
+        //li
+          a(href='#')
+            i.bx.bx-list-ul
+            span.links_name Order list
+        //li
+          a(href='#')
+            i.bx.bx-pie-chart-alt-2
+            span.links_name Analytics
+        //li
+          a(href='#')
+            i.bx.bx-coin-stack
+            span.links_name Stock
+        //li
+          a(href='#')
+            i.bx.bx-book-alt
+            span.links_name Total order
+        //li
+          a(href='#')
+            i.bx.bx-user
+            span.links_name Team
+        //li
+          a(href='#')
+            i.bx.bx-message
+            span.links_name Messages
+        //li
+          a(href='#')
+            i.bx.bx-heart
+            span.links_name Favrorites
+        //li
+          a(href='#')
+            i.bx.bx-cog
+            span.links_name Setting
+    section.home-section
+      nav
+        .sidebar-button
+          i.bx.bx-menu.sidebarBtn
+          span.dashboard Dashboard
+        //.search-box
+          input(type='text', placeholder='Search...')
+          i.bx.bx-search
+        //.profile-details
+          img(src='images/profile.jpg', alt='')
+          span.admin_name Prem Shahi
+          i.bx.bx-chevron-down
+      .home-content
+       if authorised
+          table#example.table.table-striped.table-bordered(style='width:100%')
+            thead
+              tr
+                th FirstName
+                th LastName
+                th Email
+                th Phone
+                th Status
+                th Edit
+                th Delete
+            tbody
+            if typeof users != 'undefined'
+              each user in users 
+                tr
+                  td= user.user_fname
+                  td= user.user_lname
+                  td= user.user_email
+                  td= user.user_phone
+                  td= user.active
+                  td: a(href="/edit/"+user.id) Edit
+                  td: a(href="/delete/"+user.id onclick="return confirm('Are you sure you want to delete this item?');") Delete
+            tfoot
+              tr
+                th FirstName
+                th LastName
+                th Email
+                th Phone
+                th Status
+                th Edit
+                th Delete   
+    script(type='javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js')
+    script(type='javascript' src='/js/external.js')
+    script.
+      let sidebar = document.querySelector(".sidebar");
+      let sidebarBtn = document.querySelector(".sidebarBtn");
+      sidebarBtn.onclick = function() {
+      sidebar.classList.toggle("active");
+      if(sidebar.classList.contains("active")){
+      sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+      }else
+      sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+      }     
+  else    
+    main
+      h1= title
+      if typeof messages != 'undefined'
+        each msg in messages
+          p= msg
+      block content

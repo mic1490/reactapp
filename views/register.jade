@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  form(method='POST')
+    label(for='email')
+      b Email
+    input#email(type='email', placeholder='Enter Email', name='email', required='required')
+    label(for='psw')
+      b Password
+    input#psw(type='password', placeholder='Enter Password', name='psw', required='required')
+    label(for='pswrepeat')
+      b Repeat Password
+    input#pswrepeat(type='password', placeholder='Repeat Password', name='pswrepeat', required='required')
+    label(for='fname')
+      b First Name
+    input#fname(type='text', placeholder='Enter First Name', name='fname', required='required')
+    label(for='lname')
+      b Last Name
+    input#lname(type='text', placeholder='Enter Last Name', name='lname', required='required')
+    label(for='phone')
+      b Phone
+    input#phone(type='tel', placeholder='Enter Phone Number', name='phone',maxlength="10",required='required')
+    label(for='userrole')
+      b User Role
+    select#user_role(name='role')
+      option(value='admin') Admin
+      option(value='subscriber') Subscriber
+      option(value='editor') Editor
+      option(value='contributor') Contributor  
+    button(type='submit') Register
+    p Already have an account? 
+      a(href='/') Login
